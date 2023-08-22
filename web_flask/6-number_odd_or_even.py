@@ -1,54 +1,100 @@
 #!/usr/bin/python3
-""" Starts a Flask web application """
-from flask import Flask
-from flask import render_template
+""" script that starts a Flask web application
+on port 5000 and displays Hello HBNB """
+from flask import Flask, render_template
+
 app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def hello_hbn():
-    """ Returns Hello HBNB! from 0.0.0.0:5000 """
-    return "Hello HBNB!"
+def HelloHBNB():
+    """ HelloHBNB method
+
+    Returns:
+        str: returns Hello HBNB!
+    """
+    return 'Hello HBNB!'
 
 
 @app.route('/hbnb', strict_slashes=False)
-def hbnb():
-    """ Returns HBNB from 0.0.0.0:5000/hbnb """
-    return "HBNB"
+def HBNB():
+    """ HBNB method
+
+    Returns:
+        str: returns 'HBNB'
+    """
+    return 'HBNB'
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def c_route(text):
-    """ Returns C followed by the value of text """
-    text = text.replace('_', ' ')
-    return "C {}".format(text)
+def CIsFun(text):
+    """ CIsFun <text> method
+
+    Args:
+        text (str): The text to be returned adter C
+
+    Returns:
+        str: text to be returned
+    """
+    text = text.replace("_", " ")
+    return 'C {}'.format(text)
 
 
-@app.route('/python', strict_slashes=False)
+@app.route('/python', strict_slashes=False, defaults={'text': 'is cool'})
 @app.route('/python/<text>', strict_slashes=False)
-def python_route(text="is cool"):
-    """ Returns Python followed by the vale of the text """
-    text = text.replace('_', ' ')
-    return "Python {}".format(text)
+def PythonIsCool(text):
+    """ python routing method
+
+    Args:
+        text (str, optional): text to be put in url, default to 'is cool'
+
+    Returns:
+        str: text to be returned
+    """
+    text = text.replace("_", " ")
+    return 'Python {}'.format(text)
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
-def number_route(n):
-    """ Returns n is a number if n is an integer """
-    return "{} is a number".format(n)
+def number(n):
+    """ number route
+
+    Args:
+        n (int): number passed
+
+    Returns:
+        str: text to be returned wheather in or 404
+    """
+    if isinstance(n, int):
+        return '{} is a number'.format(n)
 
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
-def number_template(n):
-    """ Returns an HTML page only if n is an integer """
-    return render_template("5-number.html", n=n)
+def NumberTemplate(n):
+    """ method NumberTemplate
+
+    Args:
+        n (list): number passed
+
+    Returns:
+        html: fetches html page
+    """
+    if isinstance(n, int):
+        return render_template('5-number.html', n=n)
 
 
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
-def number_old_or_even(n):
-    """ Returns an HTML page only if the n is an integer """
-    return render_template("6-number_odd_or_even.html", n=n)
+def OddOrEven(n):
+    """ method odd or even
 
+    Args:
+        n (int): number passed
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    Returns:
+        html: fetches html page
+    """
+    if isinstance(n, int):
+        return render_template('6-number_odd_or_even.html', n=n)
+
+if __name__ == "__main__":
+    app.run('0.0.0.0', 5000)

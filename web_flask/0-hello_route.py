@@ -1,14 +1,19 @@
 #!/usr/bin/python3
-""" Starts a Flask web application """
+""" script that starts a Flask web application
+on port 5000 and displays Hello HBNB """
 from flask import Flask
+
 app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def hello_hbn():
-    """ Return Hello HBNB! from 0.0.0.0:5000 """
-    return "Hello HBNB!"
+def HelloHBNB():
+    """ HelloHBNB method
 
+    Returns:
+        str: returns Hello HBNB!
+    """
+    return 'Hello HBNB!'
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port='5000', debug=True)
